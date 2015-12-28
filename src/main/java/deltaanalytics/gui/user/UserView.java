@@ -1,8 +1,7 @@
 package deltaanalytics.gui.user;
 
-import deltaanalytics.gui.FtirGuiElement;
-import deltaanalytics.gui.MainViewPane;
-import deltaanalytics.gui.ButtonFactory;
+import deltaanalytics.gui.util.ButtonFactory;
+import deltaanalytics.gui.util.FtirGuiElement;
 import deltaanalytics.user.entity.User;
 import deltaanalytics.user.repository.UserRepository;
 import javafx.collections.FXCollections;
@@ -17,7 +16,7 @@ import javafx.stage.StageStyle;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class UserView  implements FtirGuiElement {
+public class UserView implements FtirGuiElement {
     private TableView<User> tableView;
     private UserRepository userRepository;
 

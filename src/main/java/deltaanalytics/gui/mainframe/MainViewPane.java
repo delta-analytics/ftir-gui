@@ -1,5 +1,6 @@
-package deltaanalytics.gui;
+package deltaanalytics.gui.mainframe;
 
+import deltaanalytics.gui.util.ButtonFactory;
 import deltaanalytics.jueke.data.entity.JuekeStatus;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -75,9 +76,9 @@ public class MainViewPane {
     public void setContent(GridPane content) {
         centerGridPane.getChildren().clear();
         centerGridPane.add(buildLeftNavigation(), 0, 0);
-        centerGridPane.add(content,1,0);
-        if(activeButton != null)
-        activeButton.setStyle("-fx-background-color: red;");
+        centerGridPane.add(content, 1, 0);
+        if (activeButton != null)
+            activeButton.setStyle("-fx-background-color: red;");
     }
 
     public HBox buildBottomRow() throws Exception {
@@ -137,7 +138,7 @@ public class MainViewPane {
         Button measurementSampleButton = ButtonFactory.buildMaxWidthAndCenterLeft("MeasurementSample");
 
         measurementSampleButton.setOnAction(event1 -> {
-            activeButton=measurementSampleButton;
+            activeButton = measurementSampleButton;
             mainController.showMeasureSampleView();
         });
 

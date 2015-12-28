@@ -1,4 +1,4 @@
-package deltaanalytics.gui;
+package deltaanalytics.gui.util;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -10,7 +10,7 @@ public class ButtonFactory {
         return button;
     }
 
-    public static Button buildMaxWidthAndCenterLeft(String text){
+    public static Button buildMaxWidthAndCenterLeft(String text) {
         Button button = new Button(text);
         button.setMaxWidth(Double.MAX_VALUE);
         button.setAlignment(Pos.CENTER_LEFT);

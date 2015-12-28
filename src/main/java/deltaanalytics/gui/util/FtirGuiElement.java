@@ -1,4 +1,4 @@
-package deltaanalytics.gui;
+package deltaanalytics.gui.util;
 
 import javafx.scene.layout.GridPane;
 

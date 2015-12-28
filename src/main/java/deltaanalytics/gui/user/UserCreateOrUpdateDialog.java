@@ -1,6 +1,6 @@
 package deltaanalytics.gui.user;
 
-import deltaanalytics.gui.FtirGuiElement;
+import deltaanalytics.gui.util.FtirGuiElement;
 import deltaanalytics.user.entity.User;
 import deltaanalytics.user.repository.UserRepository;
 import javafx.application.Platform;
@@ -35,7 +35,6 @@ public class UserCreateOrUpdateDialog {
         PasswordField password = new PasswordField();
         password.setPromptText("Password");
         CheckBox enabled = new CheckBox();
-
 
 
         grid.add(new Label("Vorname:"), 0, 0);

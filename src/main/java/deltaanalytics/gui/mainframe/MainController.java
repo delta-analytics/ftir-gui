@@ -1,4 +1,4 @@
-package deltaanalytics.gui;
+package deltaanalytics.gui.mainframe;
 
 import deltaanalytics.gui.measuresample.MeasurementSampleView;
 import deltaanalytics.gui.user.UserView;
