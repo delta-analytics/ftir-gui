@@ -2,6 +2,7 @@ package deltaanalytics.gui.mainframe;
 
 import deltaanalytics.gui.util.ButtonFactory;
 import deltaanalytics.jueke.data.entity.JuekeStatus;
+import deltaanalytics.jueke.hardware.CommandRunner;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -25,6 +26,7 @@ public class MainViewPane {
     private MainController mainController;
     private GridPane centerGridPane;
     private Button activeButton;
+    private CommandRunner juekeCommandRunner;
 
     public MainViewPane(MainController mainController) {
         this.mainController = mainController;
@@ -82,7 +84,6 @@ public class MainViewPane {
     }
 
     public HBox buildBottomRow() throws Exception {
-//        CommandRunner commandRunner = new CommandRunner();
         HBox hBox = new HBox();
         hBox.setStyle("-fx-background-color:#D0D0D0;");
         final NumberAxis xAxis = new NumberAxis();
@@ -100,26 +101,19 @@ public class MainViewPane {
         Timeline animation = new Timeline();
         final int[] i = {0};
         /*animation.getKeyFrames().add(new KeyFrame(Duration.seconds(1), event -> {
-            series1.getData().add(new XYChart.Data<Number, Number>(i[0]++, Math.random() * 2));
-            if(series1.getData().size() > 30){
-                series1.getData().remove(0);
-            }
-        }));*/
-        animation.getKeyFrames().add(new KeyFrame(Duration.seconds(1), event -> {
             try {
-                //JuekeStatus juekeStatus = commandRunner.getStatus();
-                JuekeStatus juekeStatus = new JuekeStatus();
+                JuekeStatus juekeStatus = juekeCommandRunner.getStatus();
                 LOGGER.info(juekeStatus.toString());
                 LOGGER.info("=> " + juekeStatus.getActualTempHeater());
-                //series1.getData().add(new XYChart.Data<Number, Number>(i[0]++, juekeStatus.getTempPT100_1()));
-                series1.getData().add(new XYChart.Data<Number, Number>(i[0]++, Math.random() * 10));
+                series1.getData().add(new XYChart.Data<Number, Number>(i[0]++, juekeStatus.getTempPT100_1()));
+                //series1.getData().add(new XYChart.Data<Number, Number>(i[0]++, Math.random() * 10));
                 if (series1.getData().size() > 30) {
                     series1.getData().remove(0);
                 }
             } catch (Exception e) {
                 LOGGER.error("", e);
             }
-        }));
+        }));*/
         animation.setCycleCount(Animation.INDEFINITE);
         animation.play();
 
@@ -144,6 +138,10 @@ public class MainViewPane {
 
 
         Button juekeCommandsButton = ButtonFactory.buildMaxWidthAndCenterLeft("JuekeCommands");
+        juekeCommandsButton.setOnAction(event2 -> {
+            activeButton = juekeCommandsButton;
+            mainController.showJuekeView();
+        });
         Button calibrationButton = ButtonFactory.buildMaxWidthAndCenterLeft("Calibration");
         Button userButton = ButtonFactory.buildMaxWidthAndCenterLeft("Users");
         activeButton = userButton;
@@ -197,6 +195,10 @@ public class MainViewPane {
 
         });
         return task;
+    }
+
+    public void setJuekeCommandRunner(CommandRunner juekeCommandRunner) {
+        this.juekeCommandRunner = juekeCommandRunner;
     }
 
     public GridPane buildTopRow() {

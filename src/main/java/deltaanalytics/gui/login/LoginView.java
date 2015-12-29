@@ -87,8 +87,13 @@ public class LoginView {
         scene = new Scene(gridSene);
 
 
-        btnlogin.setOnAction(event ->
-                        login_check(primaryStage)
+        btnlogin.setOnAction(event -> {
+                    try {
+                        login_check(primaryStage);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
         );
 
         accountTX.setOnMousePressed(event -> {
@@ -173,7 +178,8 @@ public class LoginView {
         primaryStage.show();
     }
 
-    public void login_check(Stage primaryStage) {
+    public void login_check(Stage primaryStage) throws Exception {
+        new MainController(primaryStage).show();
         Checken checken = new Checken();
         if (userRepository.exists(accountTX.getText(), password.getText())) {
             if (checken.resultermitteln() == true) {
