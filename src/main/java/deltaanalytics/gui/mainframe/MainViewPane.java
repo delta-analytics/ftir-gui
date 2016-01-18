@@ -1,7 +1,6 @@
 package deltaanalytics.gui.mainframe;
 
 import deltaanalytics.gui.util.ButtonFactory;
-import deltaanalytics.jueke.data.entity.JuekeStatus;
 import deltaanalytics.jueke.hardware.CommandRunner;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -76,11 +75,10 @@ public class MainViewPane {
     }
 
     public void setContent(GridPane content) {
-        centerGridPane.getChildren().clear();
-        centerGridPane.add(buildLeftNavigation(), 0, 0);
+        if (centerGridPane.getChildren().size() == 2) {
+            centerGridPane.getChildren().remove(1, 2);
+        }
         centerGridPane.add(content, 1, 0);
-        if (activeButton != null)
-            activeButton.setStyle("-fx-background-color: red;");
     }
 
     public HBox buildBottomRow() throws Exception {
@@ -122,7 +120,7 @@ public class MainViewPane {
         return hBox;
     }
 
-    public GridPane buildLeftNavigation() {
+    private GridPane buildLeftNavigation() {
         GridPane gridPane = new GridPane();
         gridPane.setPadding(new Insets(60, 0, 0, 0));
         ColumnConstraints columnConstraints = new ColumnConstraints();
@@ -132,21 +130,20 @@ public class MainViewPane {
         Button measurementSampleButton = ButtonFactory.buildMaxWidthAndCenterLeft("MeasurementSample");
 
         measurementSampleButton.setOnAction(event1 -> {
-            activeButton = measurementSampleButton;
+            refreshActiveButton(measurementSampleButton);
             mainController.showMeasureSampleView();
         });
 
-
         Button juekeCommandsButton = ButtonFactory.buildMaxWidthAndCenterLeft("JuekeCommands");
         juekeCommandsButton.setOnAction(event2 -> {
-            activeButton = juekeCommandsButton;
+            refreshActiveButton(juekeCommandsButton);
             mainController.showJuekeView();
         });
         Button calibrationButton = ButtonFactory.buildMaxWidthAndCenterLeft("Calibration");
         Button userButton = ButtonFactory.buildMaxWidthAndCenterLeft("Users");
         activeButton = userButton;
         userButton.setOnAction(event1 -> {
-            activeButton = userButton;
+            refreshActiveButton(userButton);
             mainController.show();
         });
         Button calculationButton = ButtonFactory.buildMaxWidthAndCenterLeft("Calculations");
@@ -160,6 +157,12 @@ public class MainViewPane {
         });
         gridPane.add(vButtons, 0, 0);
         return gridPane;
+    }
+
+    private void refreshActiveButton(Button newActive) {
+        activeButton.setStyle("-fx-background-color: lightgray");
+        activeButton = newActive;
+        activeButton.setStyle("-fx-background-color: linear-gradient(#2A5058, #61a2b1);");
     }
 
     private Task<Void> getTask() {
