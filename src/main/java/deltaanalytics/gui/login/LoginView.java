@@ -179,11 +179,11 @@ public class LoginView {
     }
 
     public void login_check(Stage primaryStage) throws Exception {
-        new MainController(primaryStage).show();
+        new MainController(primaryStage).showFirstView();
         Checken checken = new Checken();
         if (userRepository.exists(accountTX.getText(), password.getText())) {
             if (checken.resultermitteln() == true) {
-                new MainController(primaryStage).show();
+                new MainController(primaryStage).showFirstView();
                 logger.info("alle verbindungen ok ==> Anwendung starten");
             } else {
                 logger.info("Fehlermaske starten");

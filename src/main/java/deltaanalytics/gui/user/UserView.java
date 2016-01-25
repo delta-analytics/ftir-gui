@@ -14,11 +14,13 @@ import javafx.stage.Modality;
 import javafx.stage.StageStyle;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserView implements FtirGuiElement {
     private TableView<User> tableView;
     private UserRepository userRepository;
+    private ObservableList observableSamples;
 
     public UserView() {
         userRepository = new UserRepository();
@@ -68,7 +70,7 @@ public class UserView implements FtirGuiElement {
         tableColumn6.setCellValueFactory(new PropertyValueFactory<User, LocalDateTime>("createdAt"));
 
 
-        ObservableList observableSamples = FXCollections.observableList(buildDtos());
+        observableSamples = FXCollections.observableList(buildDtos());
 
         tableView.getColumns().addAll(tableColumn1, tableColumn2, tableColumn3, tableColumn4, tableColumn5, tableColumn6);
 
@@ -89,8 +91,36 @@ public class UserView implements FtirGuiElement {
 
     public HBox buildContentFooter() {
         HBox hBox = new HBox();
-        hBox.getChildren().addAll(new Button("1"), new TextField("SEARCH"));
+        TextField searchTf = new TextField();
+        searchTf.setPromptText("Lastname starts with");
+
+        searchTf.textProperty().addListener((observable, oldValue, newValue) -> {
+            filterUsers(newValue);
+        });
+        Button doResetBtn = new Button("Reload all");
+        doResetBtn.setOnAction(event -> {
+            observableSamples = FXCollections.observableList(buildDtos());
+            tableView.setItems(observableSamples);
+            searchTf.setText("");
+        });
+        hBox.getChildren().addAll(searchTf, new Label(" "), doResetBtn);
         return hBox;
+    }
+
+    private void filterUsers(String searchString) {
+        List<User> users = buildDtos();
+        if (!searchString.isEmpty()) {
+            List<User> filteredUsers = new ArrayList<>();
+            for (User user : users) {
+                if (user.getLastname().startsWith(searchString)) {
+                    filteredUsers.add(user);
+                }
+            }
+            observableSamples = FXCollections.observableList(filteredUsers);
+        } else {
+            observableSamples = FXCollections.observableList(users);
+        }
+        tableView.setItems(observableSamples);
     }
 
     public GridPane buildContentHeader() {

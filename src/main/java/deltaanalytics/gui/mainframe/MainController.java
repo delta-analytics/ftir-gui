@@ -1,5 +1,6 @@
 package deltaanalytics.gui.mainframe;
 
+import deltaanalytics.gui.first.FirstView;
 import deltaanalytics.gui.jueke.JuekeView;
 import deltaanalytics.gui.measuresample.MeasurementSampleView;
 import deltaanalytics.gui.user.UserView;
@@ -19,7 +20,7 @@ public class MainController {
         this.stage = stage;
         this.mainViewPane = new MainViewPane(this);
         //COM1  or /dev/tty.usbserial-J0000031
-        JuekeSerialConnectionFactory.establishConnection("COM1");
+//        JuekeSerialConnectionFactory.establishConnection("COM1");
         CommandRunner commandRunner = new CommandRunner();
         mainViewPane.setJuekeCommandRunner(commandRunner);
 
@@ -32,7 +33,11 @@ public class MainController {
         juekeView.setCommandRunner(commandRunner);
     }
 
-    public void show() {
+    public void showFirstView(){
+        mainViewPane.setContent(new FirstView().buildContent());
+    }
+
+    public void showUserView() {
         mainViewPane.setContent(new UserView().buildContent());
     }
 

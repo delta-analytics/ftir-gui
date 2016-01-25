@@ -144,7 +144,7 @@ public class MainViewPane {
         activeButton = userButton;
         userButton.setOnAction(event1 -> {
             refreshActiveButton(userButton);
-            mainController.show();
+            mainController.showUserView();
         });
         Button calculationButton = ButtonFactory.buildMaxWidthAndCenterLeft("Calculations");
         Button attendanceButton = ButtonFactory.buildMaxWidthAndCenterLeft("Attendance");
