@@ -74,7 +74,7 @@ public class UserCreateOrUpdateDialog {
                 user.setLastname(nachname.getText());
                 user.setAccount(account.getText());
                 user.setPassword(password.getText());
-       //         user.setEnabled(enabled.isSelected());
+                user.setEnabled(enabled.isSelected());
                 return user;
             }
             return null;
