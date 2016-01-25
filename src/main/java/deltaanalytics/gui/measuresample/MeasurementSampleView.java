@@ -98,10 +98,7 @@ public class MeasurementSampleView implements FtirGuiElement {
     public GridPane buildContentHeader() {
         GridPane gridPane = new GridPane();
         gridPane.setPadding(new Insets(0, 5, 5, 0));
-        gridPane.add(new Button("ACTION 1"), 0, 0);
-        gridPane.add(new Button("ACTION 2"), 1, 0);
-        gridPane.add(new Button("ACTION 3"), 2, 0);
-        gridPane.add(new Button("ACTION 4"), 3, 0);
+        gridPane.add(new Button("Start new Measurement"), 0, 0);
         return gridPane;
     }
 

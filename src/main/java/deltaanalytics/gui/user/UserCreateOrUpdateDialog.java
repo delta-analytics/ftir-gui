@@ -52,14 +52,16 @@ public class UserCreateOrUpdateDialog {
         loginButton.setDisable(true);
 
         vorname.textProperty().addListener((observable, oldValue, newValue) -> {
-            loginButton.setDisable(newValue.trim().isEmpty());
+            if (newValue != null) {
+                loginButton.setDisable(newValue.trim().isEmpty());
+            }
         });
 
         vorname.setText(givenUser.getFirstname());
         nachname.setText(givenUser.getLastname());
         account.setText(givenUser.getAccount());
         password.setText(givenUser.getPassword());
-       // enabled.setSelected(givenUser.isEnabled());
+        // enabled.setSelected(givenUser.isEnabled());
 
         dialog.getDialogPane().setContent(grid);
 
