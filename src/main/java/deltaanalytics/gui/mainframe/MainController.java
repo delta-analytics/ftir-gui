@@ -2,11 +2,9 @@ package deltaanalytics.gui.mainframe;
 
 import deltaanalytics.gui.first.FirstView;
 import deltaanalytics.gui.jueke.JuekeView;
-import deltaanalytics.gui.measuresample.MeasurementSampleView;
+import deltaanalytics.gui.bruker.measuresample.MeasurementSampleView;
 import deltaanalytics.gui.user.UserView;
 import deltaanalytics.jueke.hardware.CommandRunner;
-import deltaanalytics.jueke.hardware.serial.JuekeSerialConnectionFactory;
-import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -15,6 +13,7 @@ public class MainController {
     private Stage stage;
     private GridPane mainViewGridPane;
     private MainViewPane mainViewPane;
+    private MeasurementSampleView measurementSampleView;
 
     public MainController(Stage stage) throws Exception {
         this.stage = stage;
@@ -31,6 +30,7 @@ public class MainController {
         stage.show();
         juekeView = new JuekeView();
         juekeView.setCommandRunner(commandRunner);
+        measurementSampleView = new MeasurementSampleView();
     }
 
     public void showFirstView(){
@@ -42,7 +42,7 @@ public class MainController {
     }
 
     public void showMeasureSampleView() {
-        mainViewPane.setContent(new MeasurementSampleView().buildContent());
+        mainViewPane.setContent(measurementSampleView.buildContent());
     }
 
     public void showJuekeView() {

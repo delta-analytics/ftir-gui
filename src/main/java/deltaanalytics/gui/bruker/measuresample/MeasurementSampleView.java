@@ -1,4 +1,4 @@
-package deltaanalytics.gui.measuresample;
+package deltaanalytics.gui.bruker.measuresample;
 
 import deltaanalytics.bruker.data.entity.MeasureSample;
 import deltaanalytics.bruker.data.repository.MeasureSampleRepository;
@@ -98,8 +98,11 @@ public class MeasurementSampleView implements FtirGuiElement {
     public GridPane buildContentHeader() {
         GridPane gridPane = new GridPane();
         gridPane.setPadding(new Insets(0, 5, 5, 0));
-        gridPane.add(new Button("Start new Measurement"), 0, 0);
+        Button startBtn = new Button("Start new Measurement");
+        startBtn.setOnAction(event -> {
+            new StartMeasurementDialog().showNeuDialog();
+        });
+        gridPane.add(startBtn, 0, 0);
         return gridPane;
     }
-
 }
