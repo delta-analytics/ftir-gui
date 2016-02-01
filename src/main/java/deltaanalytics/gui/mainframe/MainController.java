@@ -31,6 +31,8 @@ public class MainController {
         juekeView = new JuekeView();
         juekeView.setCommandRunner(commandRunner);
         measurementSampleView = new MeasurementSampleView();
+        deltaanalytics.bruker.hardware.CommandRunner brukerCommandRunner = new deltaanalytics.bruker.hardware.CommandRunner();
+        measurementSampleView.setbCommandRunner(brukerCommandRunner);
     }
 
     public void showFirstView(){

@@ -2,6 +2,7 @@ package deltaanalytics.gui.bruker.measuresample;
 
 import deltaanalytics.bruker.data.entity.MeasureSample;
 import deltaanalytics.bruker.data.repository.MeasureSampleRepository;
+import deltaanalytics.bruker.hardware.CommandRunner;
 import deltaanalytics.bruker.hardware.dto.MeasureSampleDto;
 import deltaanalytics.gui.util.FtirGuiElement;
 import javafx.collections.FXCollections;
@@ -20,6 +21,7 @@ import java.util.List;
 
 public class MeasurementSampleView implements FtirGuiElement {
     private TableView<MeasureSampleDto> tableView;
+    private CommandRunner bCommandRunner;
 
     @Override
     public void updateUI() {
@@ -100,9 +102,13 @@ public class MeasurementSampleView implements FtirGuiElement {
         gridPane.setPadding(new Insets(0, 5, 5, 0));
         Button startBtn = new Button("Start new Measurement");
         startBtn.setOnAction(event -> {
-            new StartMeasurementDialog().showNeuDialog();
+            new MeasurementSampleDialog(bCommandRunner).show();
         });
         gridPane.add(startBtn, 0, 0);
         return gridPane;
+    }
+
+    public void setbCommandRunner(CommandRunner bCommandRunner) {
+        this.bCommandRunner = bCommandRunner;
     }
 }
