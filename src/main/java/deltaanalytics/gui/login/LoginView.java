@@ -2,6 +2,7 @@ package deltaanalytics.gui.login;
 
 import deltaanalytics.gui.mainframe.MainController;
 import deltaanalytics.user.repository.UserRepository;
+import javafx.application.Platform;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -95,6 +96,7 @@ public class LoginView {
                     }
                 }
         );
+		Platform.runLater(() -> accountstart() );
 
         accountTX.setOnMousePressed(event -> {
             setMeldungsEffekt(accountTX, meldungTX, password);
@@ -104,7 +106,13 @@ public class LoginView {
             setMeldungsEffekt(accountTX, meldungTX, password);
         });
 
+	
         return scene;
+    }
+	
+	private void accountstart() {
+        accountTX.requestFocus();
+        accountTX.setPromptText("account");
     }
 
     private void setMeldungsEffekt(TextField accountTX
@@ -188,7 +196,7 @@ public class LoginView {
             } else {
                 logger.info("Fehlermaske starten");
                 primaryStage.close();
-                Checkresult chresult = new Checkresult();
+                ViewCheckresult chresult = new ViewCheckresult();
                 chresult.startCheckResult();
             }
         } else {
