@@ -61,7 +61,7 @@ public class UserCreateOrUpdateDialog {
         nachname.setText(givenUser.getLastname());
         account.setText(givenUser.getAccount());
         password.setText(givenUser.getPassword());
-        // enabled.setSelected(givenUser.isEnabled());
+        enabled.setSelected(givenUser.isEnabled());
 
         dialog.getDialogPane().setContent(grid);
 
