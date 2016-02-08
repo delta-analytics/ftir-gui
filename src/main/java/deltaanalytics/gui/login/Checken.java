@@ -1,6 +1,7 @@
 package deltaanalytics.gui.login;
 
 import deltaanalytics.bruker.data.entity.BrukerDataEntity;
+import deltaanalytics.bruker.hardware.CommandRunner;
 import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
@@ -155,7 +156,18 @@ public class Checken {
 
     private boolean brukerGetVersion() {
         BrukerDataEntity brukerDataEntity;
-
+        CommandRunner commandRunner = new CommandRunner();
+        String getverionstr;
+        try {
+           getverionstr = commandRunner.getVersion("localhost",5005) ;
+            logger.info("getversion: " + getverionstr);
+        } catch (Exception e) {
+           // e.printStackTrace();
+            e.getMessage();
+            logger.warn(e.getMessage());
+            return false;
+        }
+        logger.info("getversion: " + getverionstr);
         return true;
     }
 
