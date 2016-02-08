@@ -1,6 +1,7 @@
 package deltaanalytics.gui.login;
 
 import deltaanalytics.bruker.data.entity.BrukerDataEntity;
+import deltaanalytics.bruker.hardware.CommandRunner;
 import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
@@ -115,6 +116,8 @@ public class Checken {
 
 
       private boolean brukerPingCheck(String host) {
+          Boolean pingcheck = false;
+
           try {
               String strCommand = "";
                 host = "192.168.178.11";
@@ -129,15 +132,20 @@ public class Checken {
 
               String s = "";
               // reading output stream of the command
-              while ((s = inputStream.readLine()) != null) {
-                  if (s.contains("nicht erreichbar")) {
-                      return false;
+              while ((s = inputStream.readLine()) != null)  {
+                  logger.info("ping string:" + s);
+                  if ((s.contains("nicht erreichbar"))
+                  || (s.contains("berschreitung"))) {
+                      pingcheck = false; }
+                  else {
+                      pingcheck  = true;
                   }
               }
           } catch (Exception e) {
               e.printStackTrace();
+              pingcheck = false;
           }
-          return true;
+          return pingcheck;
       }
 
 
@@ -148,7 +156,18 @@ public class Checken {
 
     private boolean brukerGetVersion() {
         BrukerDataEntity brukerDataEntity;
-
+        CommandRunner commandRunner = new CommandRunner();
+        String getverionstr;
+        try {
+           getverionstr = commandRunner.getVersion("localhost",5005) ;
+            logger.info("getversion: " + getverionstr);
+        } catch (Exception e) {
+           // e.printStackTrace();
+            e.getMessage();
+            logger.warn(e.getMessage());
+            return false;
+        }
+        logger.info("getversion: " + getverionstr);
         return true;
     }
 
