@@ -65,7 +65,7 @@ public class UserCreateOrUpdateDialog {
 
         dialog.getDialogPane().setContent(grid);
 
-        Platform.runLater(() -> vorname.requestFocus());
+        Platform.runLater(vorname::requestFocus);
 
         dialog.setResultConverter(dialogButton -> {
             if (dialogButton == loginButtonType) {
