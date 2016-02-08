@@ -18,6 +18,30 @@ public class MeasurementSampleDialog {
     private Tab experimentTab;
     private Tab saveTab;
     Dialog<Void> dialog;
+    private TextField sampleNameTf;
+    private TextField textFieldAQM;
+    private TextField textFieldAPT;
+    private TextField textFieldBMS;
+    private TextField textFieldLFQ;
+    private TextField textFieldLFW;
+    private TextField textFieldOPF;
+    private TextField textFieldRES;
+    private TextField textFieldAPF;
+    private TextField textFieldPHR;
+    private TextField textFieldPHZ;
+    private TextField textFieldPLF;
+    private TextField textFieldCNM;
+    private TextField textFieldExp;
+    private TextField textFieldHFQ;
+    private TextField textFieldHFW;
+    private TextField textFieldNAM;
+    private TextField textFieldNSS;
+    private TextField textFieldPTH;
+    private TextField textFieldXPP;
+    private TextField textFieldDAP;
+    private TextField textFieldDPA;
+    private TextField textFieldDPO;
+    private TextField textFieldSAN;
 
     public MeasurementSampleDialog(CommandRunner commandRunner) {
         this.commandRunner = commandRunner;
@@ -61,7 +85,7 @@ public class MeasurementSampleDialog {
         grid.setPadding(new Insets(20, 150, 10, 10));
         Label sampleNameLbl = new Label("SampleName"); //ist snm in Param
         grid.add(sampleNameLbl, 0, 0);
-        TextField sampleNameTf = new TextField();
+        sampleNameTf = new TextField();
         sampleNameTf.setPromptText("Name");
         grid.add(sampleNameTf, 1, 0);
         CheckBox checkBox = new CheckBox("Use Default Parameters");
@@ -72,11 +96,11 @@ public class MeasurementSampleDialog {
         });
         Button runBtn = new Button("Run");
         runBtn.setOnAction(event -> {
-            LOGGER.info(brukerParameters.toString());
-            commandRunner.measureSample("localhost", 9999, brukerParameters);
+            LOGGER.info(getActual().toString());
+            commandRunner.measureSample("localhost", 9999, getActual());
 
         });
-        grid.add(runBtn, 0,2);
+        grid.add(runBtn, 0, 2);
         ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
         dialog.getDialogPane().getButtonTypes().add(buttonTypeCancel);
 
@@ -103,31 +127,31 @@ public class MeasurementSampleDialog {
 
         Label labelAQM = new Label("AQM");
         grid.add(labelAQM, 0, 0);
-        TextField textFieldAQM = new TextField(brukerParameters.getAQM());
+        textFieldAQM = new TextField(brukerParameters.getAQM());
         grid.add(textFieldAQM, 1, 0);
         Label labelAPT = new Label("APT");
         grid.add(labelAPT, 0, 1);
-        TextField textFieldAPT = new TextField(brukerParameters.getAPT());
+        textFieldAPT = new TextField(brukerParameters.getAPT());
         grid.add(textFieldAPT, 1, 1);
         Label labelBMS = new Label("BMS");
         grid.add(labelBMS, 0, 2);
-        TextField textFieldBMS = new TextField(brukerParameters.getBMS());
+        textFieldBMS = new TextField(brukerParameters.getBMS());
         grid.add(textFieldBMS, 1, 2);
         Label labelLFQ = new Label("LFQ");
         grid.add(labelLFQ, 0, 3);
-        TextField textFieldLFQ = new TextField(String.valueOf(brukerParameters.getLFQ()));
+        textFieldLFQ = new TextField(String.valueOf(brukerParameters.getLFQ()));
         grid.add(textFieldLFQ, 1, 3);
         Label labelLFW = new Label("LFW");
         grid.add(labelLFW, 0, 4);
-        TextField textFieldLFW = new TextField(String.valueOf(brukerParameters.getLFW()));
+        textFieldLFW = new TextField(String.valueOf(brukerParameters.getLFW()));
         grid.add(textFieldLFW, 1, 4);
         Label labelOPF = new Label("OPF");
         grid.add(labelOPF, 0, 5);
-        TextField textFieldOPF = new TextField(brukerParameters.getOPF());
+        textFieldOPF = new TextField(brukerParameters.getOPF());
         grid.add(textFieldOPF, 1, 5);
         Label labelRES = new Label("RES");
         grid.add(labelRES, 0, 6);
-        TextField textFieldRES = new TextField(String.valueOf(brukerParameters.getRES()));
+        textFieldRES = new TextField(String.valueOf(brukerParameters.getRES()));
         grid.add(textFieldRES, 1, 6);
 
 
@@ -146,19 +170,19 @@ public class MeasurementSampleDialog {
 
         Label labelAPF = new Label("APF");
         grid.add(labelAPF, 0, 0);
-        TextField textFieldAPF = new TextField(brukerParameters.getAPF());
+        textFieldAPF = new TextField(brukerParameters.getAPF());
         grid.add(textFieldAPF, 1, 0);
         Label labelPHR = new Label("PHR");
         grid.add(labelPHR, 0, 1);
-        TextField textFieldPHR = new TextField(String.valueOf(brukerParameters.getPHR()));
+        textFieldPHR = new TextField(String.valueOf(brukerParameters.getPHR()));
         grid.add(textFieldPHR, 1, 1);
         Label labelPHZ = new Label("PHZ");
         grid.add(labelPHZ, 0, 2);
-        TextField textFieldPHZ = new TextField(brukerParameters.getPHZ());
+        textFieldPHZ = new TextField(brukerParameters.getPHZ());
         grid.add(textFieldPHZ, 1, 2);
         Label labelPLF = new Label("PLF");
         grid.add(labelPLF, 0, 3);
-        TextField textFieldPLF = new TextField(brukerParameters.getPLF());
+        textFieldPLF = new TextField(brukerParameters.getPLF());
         grid.add(textFieldPLF, 1, 3);
 
         tab.setContent(new ScrollPane(grid));
@@ -176,48 +200,43 @@ public class MeasurementSampleDialog {
 
         Label labelCNM = new Label("CNM");
         grid.add(labelCNM, 0, 0);
-        TextField textFieldCNM = new TextField(brukerParameters.getCNM());
+        textFieldCNM = new TextField(brukerParameters.getCNM());
         grid.add(textFieldCNM, 1, 0);
 
         Label labelEXP = new Label("EXP");
         grid.add(labelEXP, 0, 1);
-        TextField textFieldExp = new TextField(String.valueOf(brukerParameters.getEXP()));
+        textFieldExp = new TextField(String.valueOf(brukerParameters.getEXP()));
         grid.add(textFieldExp, 1, 1);
 
         Label labelHFQ = new Label("HFQ");
         grid.add(labelHFQ, 0, 2);
-        TextField textFieldHFQ = new TextField(String.valueOf(brukerParameters.getHFQ()));
+        textFieldHFQ = new TextField(String.valueOf(brukerParameters.getHFQ()));
         grid.add(textFieldHFQ, 1, 2);
 
         Label labelHFW = new Label("HFW");
         grid.add(labelHFW, 0, 3);
-        TextField textFieldHFW = new TextField(String.valueOf(brukerParameters.getHFW()));
+        textFieldHFW = new TextField(String.valueOf(brukerParameters.getHFW()));
         grid.add(textFieldHFW, 1, 3);
 
         Label labelNAM = new Label("NAM");
         grid.add(labelNAM, 0, 4);
-        TextField textFieldNAM = new TextField(String.valueOf(brukerParameters.getNAM()));
+        textFieldNAM = new TextField(String.valueOf(brukerParameters.getNAM()));
         grid.add(textFieldNAM, 1, 4);
 
         Label labelNSS = new Label("NSS");
         grid.add(labelNSS, 0, 5);
-        TextField textFieldNSS = new TextField(String.valueOf(brukerParameters.getNSS()));
+        textFieldNSS = new TextField(String.valueOf(brukerParameters.getNSS()));
         grid.add(textFieldNSS, 1, 5);
 
         Label labelPTH = new Label("PTH");
         grid.add(labelPTH, 0, 6);
-        TextField textFieldPTH = new TextField(String.valueOf(brukerParameters.getPTH()));
+        textFieldPTH = new TextField(String.valueOf(brukerParameters.getPTH()));
         grid.add(textFieldPTH, 1, 6);
 
-        Label labelSNM = new Label("SNM");
-        grid.add(labelSNM, 0, 7);
-        TextField textFieldSNM = new TextField(brukerParameters.getSNM());
-        grid.add(textFieldSNM, 1, 7);
-
         Label labelXPP = new Label("XPP");
-        grid.add(labelXPP, 0, 8);
-        TextField textFieldXPP = new TextField(brukerParameters.getXPP());
-        grid.add(textFieldXPP, 1, 8);
+        grid.add(labelXPP, 0, 7);
+        textFieldXPP = new TextField(brukerParameters.getXPP());
+        grid.add(textFieldXPP, 1, 7);
         tab.setContent(new ScrollPane(grid));
         return tab;
     }
@@ -233,27 +252,53 @@ public class MeasurementSampleDialog {
 
         Label labelDAP = new Label("DAP");
         grid.add(labelDAP, 0, 0);
-        TextField textFieldDAP = new TextField(brukerParameters.getDAP());
+        textFieldDAP = new TextField(brukerParameters.getDAP());
         grid.add(textFieldDAP, 1, 0);
         Label labelDPA = new Label("DPA");
         grid.add(labelDPA, 0, 1);
-        TextField textFieldDPA = new TextField(String.valueOf(brukerParameters.getDPA()));
+        textFieldDPA = new TextField(String.valueOf(brukerParameters.getDPA()));
         grid.add(textFieldDPA, 1, 1);
         Label labelDPO = new Label("DPO");
         grid.add(labelDPO, 0, 2);
-        TextField textFieldDPO = new TextField(String.valueOf(brukerParameters.getDPO()));
+        textFieldDPO = new TextField(String.valueOf(brukerParameters.getDPO()));
         grid.add(textFieldDPO, 1, 2);
         Label labelSAN = new Label("SAN");
         grid.add(labelSAN, 0, 3);
-        TextField textFieldSAN = new TextField(brukerParameters.getSAN());
+        textFieldSAN = new TextField(brukerParameters.getSAN());
         grid.add(textFieldSAN, 1, 3);
 
         tab.setContent(new ScrollPane(grid));
         return tab;
     }
 
-    private BrukerParameters getActual(){
-        BrukerParameters brukerParameters = new BrukerParameters();
+    private BrukerParameters getActual() {
+        BrukerParameters brukerParameters = BrukerParameters.getDefault();
+
+        brukerParameters.setSNM(sampleNameTf.getText());
+        brukerParameters.setAQM(textFieldAQM.getText());
+        brukerParameters.setAPT(textFieldAPT.getText());
+        brukerParameters.setBMS(textFieldBMS.getText());
+        brukerParameters.setLFQ(Double.parseDouble(textFieldLFQ.getText()));
+        brukerParameters.setLFW(Double.parseDouble(textFieldLFW.getText()));
+        brukerParameters.setOPF(textFieldOPF.getText());
+        brukerParameters.setRES(Double.parseDouble(textFieldRES.getText()));
+        brukerParameters.setAPF(textFieldAPF.getText());
+        brukerParameters.setPHR(Double.parseDouble(textFieldPHR.getText()));
+        brukerParameters.setPHZ(textFieldPHZ.getText());
+        brukerParameters.setPLF(textFieldPLF.getText());
+        brukerParameters.setCNM(textFieldCNM.getText());
+        brukerParameters.setEXP(textFieldExp.getText());
+        brukerParameters.setHFQ(Double.parseDouble(textFieldHFQ.getText()));
+        brukerParameters.setHFW(Double.parseDouble(textFieldHFW.getText()));
+        brukerParameters.setNAM(textFieldNAM.getText());
+        brukerParameters.setNSS(Integer.parseInt(textFieldNSS.getText()));
+        brukerParameters.setPTH(textFieldPTH.getText());
+        brukerParameters.setSNM(sampleNameTf.getText());
+        brukerParameters.setXPP(textFieldXPP.getText());
+        brukerParameters.setDAP(textFieldDAP.getText());
+        brukerParameters.setDPA(Integer.parseInt(textFieldDPA.getText()));
+        brukerParameters.setDPO(Integer.parseInt(textFieldDPO.getText()));
+        brukerParameters.setSAN(textFieldSAN.getText());
 
         return brukerParameters;
     }
