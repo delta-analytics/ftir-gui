@@ -115,6 +115,8 @@ public class Checken {
 
 
       private boolean brukerPingCheck(String host) {
+          Boolean pingcheck = false;
+
           try {
               String strCommand = "";
                 host = "192.168.178.11";
@@ -129,15 +131,20 @@ public class Checken {
 
               String s = "";
               // reading output stream of the command
-              while ((s = inputStream.readLine()) != null) {
-                  if (s.contains("nicht erreichbar")) {
-                      return false;
+              while ((s = inputStream.readLine()) != null)  {
+                  logger.info("ping string:" + s);
+                  if ((s.contains("nicht erreichbar"))
+                  || (s.contains("berschreitung"))) {
+                      pingcheck = false; }
+                  else {
+                      pingcheck  = true;
                   }
               }
           } catch (Exception e) {
               e.printStackTrace();
+              pingcheck = false;
           }
-          return true;
+          return pingcheck;
       }
 
 
