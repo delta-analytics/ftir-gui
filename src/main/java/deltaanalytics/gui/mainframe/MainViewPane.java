@@ -134,6 +134,12 @@ public class MainViewPane {
         columnConstraints.setPercentWidth(100);
         gridPane.getColumnConstraints().add(columnConstraints);
         Button measurementReferenceButton = ButtonFactory.buildMaxWidthAndCenterLeft("MeasurementReference");
+
+        measurementReferenceButton.setOnAction(event3 -> {
+            refreshActiveButton(measurementReferenceButton);
+            mainController.showMeasureReferenceView();
+        });
+
         Button measurementSampleButton = ButtonFactory.buildMaxWidthAndCenterLeft("MeasurementSample");
 
         measurementSampleButton.setOnAction(event1 -> {
@@ -158,10 +164,7 @@ public class MainViewPane {
         VBox vButtons = new VBox();
         vButtons.getChildren().addAll(measurementReferenceButton, measurementSampleButton, juekeCommandsButton, calibrationButton,
                 userButton, calculationButton, attendanceButton);
-        measurementReferenceButton.setOnAction(event -> {
-            Thread thread = new Thread(getTask());
-            thread.start();
-        });
+
         gridPane.add(vButtons, 0, 0);
         return gridPane;
     }

@@ -1,5 +1,6 @@
 package deltaanalytics.gui.mainframe;
 
+import deltaanalytics.gui.bruker.measurereference.MeasurementReferenceView;
 import deltaanalytics.gui.first.FirstView;
 import deltaanalytics.gui.jueke.JuekeView;
 import deltaanalytics.gui.bruker.measuresample.MeasurementSampleView;
@@ -14,6 +15,7 @@ public class MainController {
     private GridPane mainViewGridPane;
     private MainViewPane mainViewPane;
     private MeasurementSampleView measurementSampleView;
+    private MeasurementReferenceView measurementReferenceView;
 
     public MainController(Stage stage) throws Exception {
         this.stage = stage;
@@ -31,8 +33,10 @@ public class MainController {
         juekeView = new JuekeView();
         juekeView.setCommandRunner(commandRunner);
         measurementSampleView = new MeasurementSampleView();
+        measurementReferenceView = new MeasurementReferenceView();
         deltaanalytics.bruker.hardware.CommandRunner brukerCommandRunner = new deltaanalytics.bruker.hardware.CommandRunner();
         measurementSampleView.setbCommandRunner(brukerCommandRunner);
+        measurementReferenceView.setbCommandRunner(brukerCommandRunner);
     }
 
     public void showFirstView(){
@@ -45,6 +49,10 @@ public class MainController {
 
     public void showMeasureSampleView() {
         mainViewPane.setContent(measurementSampleView.buildContent());
+    }
+
+    public void showMeasureReferenceView() {
+        mainViewPane.setContent(measurementReferenceView.buildContent());
     }
 
     public void showJuekeView() {
