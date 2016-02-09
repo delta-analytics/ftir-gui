@@ -61,11 +61,11 @@ public class UserCreateOrUpdateDialog {
         nachname.setText(givenUser.getLastname());
         account.setText(givenUser.getAccount());
         password.setText(givenUser.getPassword());
-        // enabled.setSelected(givenUser.isEnabled());
+        enabled.setSelected(givenUser.isEnabled());
 
         dialog.getDialogPane().setContent(grid);
 
-        Platform.runLater(() -> vorname.requestFocus());
+        Platform.runLater(vorname::requestFocus);
 
         dialog.setResultConverter(dialogButton -> {
             if (dialogButton == loginButtonType) {
@@ -76,7 +76,7 @@ public class UserCreateOrUpdateDialog {
                 user.setLastname(nachname.getText());
                 user.setAccount(account.getText());
                 user.setPassword(password.getText());
-   //             user.setEnabled(enabled.isSelected());
+                user.setEnabled(enabled.isSelected());
                 return user;
             }
             return null;
