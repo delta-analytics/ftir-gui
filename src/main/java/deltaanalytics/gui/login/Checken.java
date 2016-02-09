@@ -11,12 +11,12 @@ import java.io.InputStreamReader;
  * Created by Willi on 15.12.2015.
  */
 public class Checken {
-    private static boolean result;
-    private static boolean brukerGetVersion;
-    private static boolean brukerPingCheck;
-    private static boolean brukerVerbindung;
-    private static boolean juekeVerbindung;
-    private static boolean dbconnect;
+    private boolean result;
+    private boolean brukerGetVersion;
+    private boolean brukerPingCheck;
+    private boolean brukerVerbindung;
+    private boolean juekeVerbindung;
+    private boolean dbconnect;
 
     private static final org.slf4j.Logger logger = LoggerFactory.getLogger(Checken.class);
 
@@ -40,8 +40,16 @@ public class Checken {
         } else {
             ok = false;
         }
-        setResult(ok);
-        return ok;
+        if (isBrukerVerbindung()
+                && isJuekeVerbindung()
+                    && isDbconnect() ) {
+            setResult(ok);
+            return true;
+        } else {
+            setResult(ok);
+            return false;
+        }
+
     }
 
     private void brukerVerbindung() {
@@ -160,7 +168,8 @@ public class Checken {
         String getverionstr;
         try {
            getverionstr = commandRunner.getVersion("localhost",5005) ;
-            logger.info("getversion: " + getverionstr);
+            if (commandRunner.getVersion("localhost",5005).equals(""))
+            return true;
         } catch (Exception e) {
            // e.printStackTrace();
             e.getMessage();
@@ -171,52 +180,52 @@ public class Checken {
         return true;
     }
 
-    public static boolean isDbconnect() {
+    public  boolean isDbconnect() {
         return dbconnect;
     }
 
-    public static void setDbconnect(boolean dbconnect) {
-        Checken.dbconnect = dbconnect;
+    public  void setDbconnect(boolean dbconnect) {
+        this.dbconnect = dbconnect;
     }
 
-    public static boolean isResult() {
+    public  boolean isResult() {
         return result;
     }
 
-    public static void setResult(boolean result) {
-        Checken.result = result;
+    public  void setResult(boolean result) {
+        result = result;
     }
 
-    public static boolean isBrukerGetVersion() {
+    public  boolean isBrukerGetVersion() {
         return brukerGetVersion;
     }
 
-    public static void setBrukerGetVersion(boolean brukerGetVersion) {
-        Checken.brukerGetVersion = brukerGetVersion;
+    public  void setBrukerGetVersion(boolean brukerGetVersion) {
+        brukerGetVersion = brukerGetVersion;
     }
 
-    public static boolean isBrukerPingCheck() {
+    public  boolean isBrukerPingCheck() {
         return brukerPingCheck;
     }
 
-    public static void setBrukerPingCheck(boolean brukerPingCheck) {
-        Checken.brukerPingCheck = brukerPingCheck;
+    public  void setBrukerPingCheck(boolean brukerPingCheck) {
+        brukerPingCheck = brukerPingCheck;
     }
 
-    public static boolean isBrukerVerbindung() {
+    public  boolean isBrukerVerbindung() {
         return brukerVerbindung;
     }
 
-    public static void setBrukerVerbindung(boolean bruker) {
-        Checken.brukerVerbindung = bruker;
+    public  void setBrukerVerbindung(boolean bruker) {
+        brukerVerbindung = bruker;
     }
 
-    public static boolean isJuekeVerbindung() {
+    public  boolean isJuekeVerbindung() {
         return juekeVerbindung;
     }
 
-    public static void setJuekeVerbindung(boolean juekeVerbindung) {
-        Checken.juekeVerbindung = juekeVerbindung;
+    public  void setJuekeVerbindung(boolean juekeVerbindung) {
+        this.juekeVerbindung = juekeVerbindung;
     }
 }
 

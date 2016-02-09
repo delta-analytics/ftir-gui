@@ -196,7 +196,7 @@ public class LoginView {
             } else {
                 logger.info("Fehlermaske starten");
                 primaryStage.close();
-                ViewCheckresult chresult = new ViewCheckresult();
+                Checkresultview chresult = new Checkresultview(checken);
                 chresult.startCheckResult();
             }
         } else {

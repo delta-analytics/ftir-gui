@@ -1,7 +1,6 @@
 package deltaanalytics.gui.login;
 
 import deltaanalytics.gui.mainframe.MainController;
-import javafx.stage.Stage;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.VPos;
@@ -17,39 +16,42 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import org.slf4j.LoggerFactory;
 
 /**
  * Created by Willi on 05.02.2016.
  */
-public class ViewCheckresult {
-    private Stage nextstage   =   new Stage();
-    private GridPane resultgrid    =   new GridPane();
+public class Checkresultview {
+    private Stage nextstage = new Stage();
+    private GridPane resultgrid = new GridPane();
     private Scene scene;
-    private static String      fontTyp     =   new String("Tahoma");
-    private int         boldKlein   =   14;
-    private int         boldGross   =   18;
-    private Image i_logo      =   new Image(getClass()
-                .getResource("/logo.jpg").toExternalForm(), 100, 100, false, false);
-    private Button  weiterbtn;
-    private Button  errorweiterbnt;
+    private static String fontTyp = new String("Tahoma");
+    private int boldKlein = 14;
+    private int boldGross = 18;
+    private Image i_logo = new Image(getClass()
+            .getResource("/logo.jpg").toExternalForm(), 100, 100, false, false);
+    private Button weiterbtn;
+    private Button errorweiterbnt;
 
     private ImageView v_logo = new ImageView(i_logo);
-    private final Circle circle =   new Circle(6, 10, 10);
+    private final Circle circle = new Circle(6, 10, 10);
     private Color farbe;
-    private Checken checken = new Checken();
-    private Text messagetxt =   new Text();
-    private Text        brukerVerbTxt       =   new Text();
-    private Text        brukerPingTxt       =   new Text();
-    private Text        juekeTxt            =   new Text();
-    private Text        dbconTxt            =   new Text();
-    private Text        brukerGetTxt        =   new Text();
-    private Integer     wieoft              =       0;
-    private Boolean     errorvorh           =   false;
+    private Checken checken;
+    private Text messagetxt = new Text();
+    private Text brukerVerbTxt = new Text();
+    private Text brukerPingTxt = new Text();
+    private Text juekeTxt = new Text();
+    private Text dbconTxt = new Text();
+    private Text brukerGetTxt = new Text();
+    private Integer wieoft = 0;
+    private Boolean errorvorh = false;
 
+    private static final org.slf4j.Logger logger  = LoggerFactory.getLogger( Checkresultview.class);
 
-
-    private static final org.slf4j.Logger logger  = LoggerFactory.getLogger( ViewCheckresult.class);
+    public Checkresultview(Checken checken) {
+        this.checken = checken;
+    }
 
     public void startCheckResult() {
         start(nextstage);
@@ -57,7 +59,7 @@ public class ViewCheckresult {
 
     public void start(Stage nextstage) {
             build(nextstage);
-            nextstage.getIcons().add(new Image(ViewCheckresult.class.getResourceAsStream("/logo.jpg")));
+            nextstage.getIcons().add(new Image(Checkresultview.class.getResourceAsStream("/logo.jpg")));
             nextstage.setFullScreen(false);
             nextstage.setTitle("Delta Analytics");
             nextstage.setScene(scene);
@@ -115,9 +117,9 @@ public class ViewCheckresult {
     }
 
     private void pruefeVerbJetztOK(Stage primaryStage)throws Exception {
-            Checken checken = new Checken();
+
             checken.resultermitteln();
-            if (Checken.isResult()) {
+            if (checken.isResult()) {
                 new MainController(primaryStage).showFirstView();
                 logger.info("Anwendung starten");
             } else {
@@ -159,21 +161,21 @@ public class ViewCheckresult {
             brukerVerbindunglb.setFont(Font.font(fontTyp,FontWeight.BOLD,boldKlein));
             pruefgrid.add(brukerVerbindunglb,1,2);
 
-            pruefgrid.add(isConnectCicleColor(Checken.isBrukerVerbindung(),"brukerVer"),2,2);
+            pruefgrid.add(isConnectCicleColor(checken.isBrukerVerbindung(),"brukerVer"),2,2);
             pruefgrid.add(brukerVerbTxt,3,2);
 
             juekeVerbindunglb.setText("Jueke Connection");
             juekeVerbindunglb.setFont(Font.font(fontTyp,FontWeight.BOLD,boldKlein));
             pruefgrid.add(juekeVerbindunglb,1,3);
 
-            pruefgrid.add(isConnectCicleColor(Checken.isJuekeVerbindung(),"jueke"),2,3);
+            pruefgrid.add(isConnectCicleColor(checken.isJuekeVerbindung(),"jueke"),2,3);
             pruefgrid.add(juekeTxt,3,3);
 
             dbchecklb.setText("Database Connection");
             dbchecklb.setFont(Font.font(fontTyp,FontWeight.BOLD,boldKlein));
             pruefgrid.add(dbchecklb,1,4);
 
-            pruefgrid.add(isConnectCicleColor(Checken.isDbconnect(),"db"),2,4);
+            pruefgrid.add(isConnectCicleColor(checken.isDbconnect(),"db"),2,4);
             pruefgrid.add(dbconTxt,3,4);
 
             Label   messagelb   =   new Label();
