@@ -1,4 +1,4 @@
-package deltaanalytics.gui.bruker.measuresample;
+package deltaanalytics.gui.bruker.measurereference;
 
 import deltaanalytics.bruker.data.entity.BrukerParameters;
 import deltaanalytics.bruker.hardware.CommandRunner;
@@ -8,8 +8,8 @@ import javafx.scene.layout.GridPane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class MeasurementSampleDialog {
-    private static final Logger LOGGER = LoggerFactory.getLogger(MeasurementSampleDialog.class);
+public class MeasurementReferenceDialog {
+    private static final Logger LOGGER = LoggerFactory.getLogger(MeasurementReferenceDialog.class);
     private final CommandRunner commandRunner;
     private BrukerParameters brukerParameters = BrukerParameters.getDefault();
     private Tab overviewTab;
@@ -43,13 +43,13 @@ public class MeasurementSampleDialog {
     private TextField textFieldDPO;
     private TextField textFieldSAN;
 
-    public MeasurementSampleDialog(CommandRunner commandRunner) {
+    public MeasurementReferenceDialog(CommandRunner commandRunner) {
         this.commandRunner = commandRunner;
     }
 
     void show() {
         dialog = new Dialog<>();
-        dialog.setTitle("Start Measurement");
+        dialog.setTitle("Start Reference Measurement");
 
         GridPane grid = new GridPane();
         TabPane tabPane = new TabPane();
@@ -97,7 +97,7 @@ public class MeasurementSampleDialog {
         Button runBtn = new Button("Run");
         runBtn.setOnAction(event -> {
             LOGGER.info(getActual().toString());
-            commandRunner.measureSample("localhost", 9999, getActual());
+            commandRunner.measureReference("localhost", 9999, getActual());
 
         });
         grid.add(runBtn, 0, 2);

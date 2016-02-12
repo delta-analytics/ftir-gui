@@ -64,7 +64,7 @@ public class MainViewPane {
 
         wholeGridPane.add(centerGridPane, 0, 1);
 
-        HBox child = null;
+        GridPane child = null;
         try {
             child = buildBottomRow();
         } catch (Exception e) {
@@ -81,9 +81,8 @@ public class MainViewPane {
         centerGridPane.add(content, 1, 0);
     }
 
-    public HBox buildBottomRow() throws Exception {
-        HBox hBox = new HBox();
-        hBox.setStyle("-fx-background-color:#D0D0D0;");
+    public GridPane buildBottomRow() throws Exception {
+        GridPane gridPane = new GridPane();
         final NumberAxis xAxis = new NumberAxis();
         final NumberAxis yAxis = new NumberAxis();
         final LineChart<Number, Number> lineChart =
@@ -98,26 +97,34 @@ public class MainViewPane {
         lineChart.setPadding(new Insets(5));
         Timeline animation = new Timeline();
         final int[] i = {0};
-        /*animation.getKeyFrames().add(new KeyFrame(Duration.seconds(1), event -> {
+        animation.getKeyFrames().add(new KeyFrame(Duration.seconds(1), event -> {
             try {
-                JuekeStatus juekeStatus = juekeCommandRunner.getStatus();
-                LOGGER.info(juekeStatus.toString());
-                LOGGER.info("=> " + juekeStatus.getActualTempHeater());
-                series1.getData().add(new XYChart.Data<Number, Number>(i[0]++, juekeStatus.getTempPT100_1()));
-                //series1.getData().add(new XYChart.Data<Number, Number>(i[0]++, Math.random() * 10));
+                // JuekeStatus juekeStatus = juekeCommandRunner.getStatus();
+                //LOGGER.info(juekeStatus.toString());
+                //LOGGER.info("=> " + juekeStatus.getActualTempHeater());
+                //series1.getData().add(new XYChart.Data<Number, Number>(i[0]++, juekeStatus.getTempPT100_1()));
+                series1.getData().add(new XYChart.Data<Number, Number>(i[0]++, Math.random() * 10));
                 if (series1.getData().size() > 30) {
                     series1.getData().remove(0);
                 }
             } catch (Exception e) {
                 LOGGER.error("", e);
             }
-        }));*/
+        }));
         animation.setCycleCount(Animation.INDEFINITE);
         animation.play();
+        ColumnConstraints columnConstraintsForCenterLeft = new ColumnConstraints();
+        columnConstraintsForCenterLeft.setPercentWidth(15);
+        ColumnConstraints columnConstraintsForCenterMiddle = new ColumnConstraints();
+        columnConstraintsForCenterMiddle.setPercentWidth(70);
+        ColumnConstraints columnConstraintsForCenterRight = new ColumnConstraints();
+        columnConstraintsForCenterRight.setPercentWidth(15);
+        gridPane.getColumnConstraints().addAll(columnConstraintsForCenterLeft, columnConstraintsForCenterMiddle, columnConstraintsForCenterRight);
 
-        hBox.setAlignment(Pos.BOTTOM_RIGHT);
-        hBox.getChildren().add(lineChart);
-        return hBox;
+        gridPane.add(new HBox(), 0, 0);
+        gridPane.add(lineChart, 1, 0);
+        gridPane.add(new HBox(), 2,0);
+        return gridPane;
     }
 
     private GridPane buildLeftNavigation() {
@@ -127,6 +134,12 @@ public class MainViewPane {
         columnConstraints.setPercentWidth(100);
         gridPane.getColumnConstraints().add(columnConstraints);
         Button measurementReferenceButton = ButtonFactory.buildMaxWidthAndCenterLeft("MeasurementReference");
+
+        measurementReferenceButton.setOnAction(event3 -> {
+            refreshActiveButton(measurementReferenceButton);
+            mainController.showMeasureReferenceView();
+        });
+
         Button measurementSampleButton = ButtonFactory.buildMaxWidthAndCenterLeft("MeasurementSample");
 
         measurementSampleButton.setOnAction(event1 -> {
@@ -151,10 +164,7 @@ public class MainViewPane {
         VBox vButtons = new VBox();
         vButtons.getChildren().addAll(measurementReferenceButton, measurementSampleButton, juekeCommandsButton, calibrationButton,
                 userButton, calculationButton, attendanceButton);
-        measurementReferenceButton.setOnAction(event -> {
-            Thread thread = new Thread(getTask());
-            thread.start();
-        });
+
         gridPane.add(vButtons, 0, 0);
         return gridPane;
     }
