@@ -20,10 +20,10 @@ public class HitranParameters {
     private int Dd;  // wings of each line in wavenumbers of cm-1
     
     public HitranParameters(){
-        this.callHitran = new boolean[] {true, true, true, true, true, true,true};
+        this.callHitran = new boolean[] {true, true, true, true, false, false, true};
         this.lowWN = new double[] {3860, 3470, 2500, 2080, 2900, 3730, 2840};
         this.highWN = new double[] {3965, 3760, 2600, 2141, 3165, 3780, 2940};
-        this.molecule = 5;
+        this.molecule = 4;
         this.baselineStep = 0;
         this.stp = 0.02;
         this.intensThres1 = 1e-25;
