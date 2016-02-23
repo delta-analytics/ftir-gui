@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 /** ToDo get parameters from GUI
  *  vector of initial parameters for use of Hitran data base
+ *  base class for all molecules
 */
 public class HitranParameters {
     private boolean[] callHitran;  // which moleclue to investigate 1=H2O  2=CO2  3=N2O  4=CO  5=CH4  6=NO  7=NO2
@@ -20,6 +21,7 @@ public class HitranParameters {
     private double Patm;  // default = 1 atm; total Pressure in ATM units
     private int[] Dd;  // default = 5; wings of each line in wavenumbers of cm-1
     
+    // @ToDo call GUI
     public HitranParameters(){
         this.callHitran = new boolean[] {false, false, false, false, false, false, false};
         this.lowWN = new double[] {3860, 3470, 2500, 2080, 2900, 3730, 2840};
